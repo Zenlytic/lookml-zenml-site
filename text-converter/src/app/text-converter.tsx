@@ -1,6 +1,14 @@
 'use client';
 import React, { useState } from 'react';
 import { AlertCircle } from 'lucide-react';
+import yaml from 'js-yaml';
+
+
+interface ConversionError {
+  message: string;
+  details?: string;
+  timestamp: string;
+}
 
 const TextConverter = () => {
   const [inputText, setInputText] = useState('');
@@ -23,7 +31,6 @@ const TextConverter = () => {
       });
 
       const data = await response.text();
-      const yaml = require('js-yaml');
       const parsedData = yaml.load(data);
       let formattedData = yaml.dump(parsedData, {
         indent: 0,
@@ -50,7 +57,6 @@ const TextConverter = () => {
         timestamp: new Date().toISOString()
       });
       setOutputText(`Error: ${error.message}`);
-    }
     } finally {
       setIsLoading(false);
     }
