@@ -6,7 +6,7 @@ const TextConverter = () => {
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<ConversionError | null>(null);
 
   const handleConvert = async () => {
     setIsLoading(true);
@@ -42,14 +42,15 @@ const TextConverter = () => {
 
       setOutputText(formattedData);
       setError(null);
-    } catch (error) {
+    } catch (err) {
+      const error = err as Error;
       setError({
         message: error.message,
         details: error.stack,
         timestamp: new Date().toISOString()
       });
       setOutputText(`Error: ${error.message}`);
-      // setOutputText(''); // Clear any previous output
+    }
     } finally {
       setIsLoading(false);
     }
