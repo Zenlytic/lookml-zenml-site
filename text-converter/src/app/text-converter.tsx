@@ -40,7 +40,7 @@ const TextConverter = () => {
       });
       
       // Remove the | and de-indent if present
-      formattedData = formattedData.replace(/^\|\n/, '').replace(/^\s{2}/gm, '');
+      formattedData = formattedData.replace(/^\|\n/, '');
 
 
       if (!response.ok) {
